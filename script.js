@@ -15,17 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeApp();
 });
 
-
 function initializeApp() {
   const uploadInput = document.getElementById("upload");
   const downloadBtn = document.getElementById("download");
-  const twitterBtn = document.getElementById("twitter-btn");
+  const twitterBtn  = document.getElementById("twitter-btn");
+  const discordBtn  = document.getElementById("discord-btn"); 
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
-
   const frame = new Image();
-  frame.src = "frame.png"; 
+  frame.src = "frame.png";
   frame.onload = () => {
     canvas.width = frame.width;
     canvas.height = frame.height;
@@ -47,6 +46,7 @@ function initializeApp() {
       drawInsideFrame(ctx, frame, userImg);
       downloadBtn.classList.remove("hidden");
       twitterBtn.classList.remove("hidden");
+      discordBtn.classList.remove("hidden"); 
     } catch (err) {
       console.error(err);
       alert("Processing failed, showing original image instead.");
@@ -54,6 +54,7 @@ function initializeApp() {
       drawInsideFrame(ctx, frame, userImg);
       downloadBtn.classList.remove("hidden");
       twitterBtn.classList.remove("hidden");
+      discordBtn.classList.remove("hidden");
     }
   });
 
@@ -71,6 +72,17 @@ function initializeApp() {
     link.click();
     setTimeout(() => {
       window.open("https://twitter.com/settings/profile", "_blank");
+    }, 800);
+  });
+
+
+  discordBtn.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = "framed-pfp.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    setTimeout(() => {
+      window.open("https://discord.com/settings/profile", "_blank");
     }, 800);
   });
 }
